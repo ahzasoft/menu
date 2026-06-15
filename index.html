@@ -58,7 +58,7 @@
         .nav-link {
             font-weight: 600;
             color: var(--dark-color) !important;
-            margin: 0 10px;
+            margin: 0 5px;
             position: relative;
         }
 
@@ -80,7 +80,7 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            height: 80vh;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
                         url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop');
             background-size: cover;
@@ -94,30 +94,23 @@
         }
 
         .hero-content h1 {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 8vw, 4rem);
             margin-bottom: 1.5rem;
             color: var(--secondary-color);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-        }
-
         .hero-content p {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 4vw, 1.5rem);
             margin-bottom: 2rem;
         }
 
         .btn-custom {
-            padding: 12px 35px;
+            padding: 10px 25px;
             border-radius: 50px;
             font-weight: 700;
             transition: var(--transition);
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .btn-primary-custom {
@@ -134,7 +127,7 @@
 
         /* Features */
         .feature-card {
-            padding: 30px;
+            padding: 20px;
             border-radius: 20px;
             background: var(--white);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
@@ -145,20 +138,19 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
         }
 
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
             display: inline-block;
         }
 
         /* Menu */
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             position: relative;
             padding-bottom: 15px;
         }
@@ -169,7 +161,7 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 60px;
             height: 4px;
             background: var(--primary-color);
             border-radius: 2px;
@@ -178,10 +170,11 @@
         .menu-tabs .nav-link {
             border: none;
             color: var(--dark-color) !important;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 50px;
             margin: 5px;
             background: #f1f1f1;
+            font-size: 0.9rem;
         }
 
         .menu-tabs .nav-link.active {
@@ -190,44 +183,167 @@
         }
 
         .menu-item-card {
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             background: var(--white);
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             transition: var(--transition);
             height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .menu-item-card:hover {
-            transform: scale(1.03);
+            transform: translateY(-5px);
         }
 
         .menu-item-img {
-            height: 200px;
+            height: 180px;
             width: 100%;
             object-fit: cover;
         }
 
         .menu-item-body {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-item-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .menu-item-body p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
         }
 
         .menu-item-price {
             color: var(--primary-color);
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Cart Styles */
+        .offcanvas-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-left: 12px;
+            border: 1px solid #eee;
+        }
+
+        .cart-item-info h6 {
+            margin-bottom: 4px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .cart-item-info p {
+            margin-bottom: 0;
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        #cart-total {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .order-type-btn {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .order-type-btn:hover, .order-type-btn.active {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        .btn-quantity {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .btn-quantity:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Dark Mode Cart Adjustments */
+        body.bg-dark .offcanvas {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.bg-dark .cart-item {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        body.bg-dark .cart-item-info h6 {
+            color: #fff;
+        }
+
+        body.bg-dark .btn-quantity {
+            background: #333;
+            border-color: #444;
+            color: #fff;
         }
 
         /* Reservation */
         .reservation-section {
             background: var(--light-bg);
-            padding: 80px 0;
+            padding: 60px 0;
         }
 
         .reservation-form {
             background: var(--white);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.05);
         }
@@ -236,41 +352,30 @@
         footer {
             background: var(--dark-color);
             color: #ccc;
-            padding: 60px 0 20px;
+            padding: 40px 0 20px;
         }
 
         .footer-logo {
             color: var(--secondary-color);
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .social-links a {
-            color: white;
             font-size: 1.5rem;
-            margin: 0 10px;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 15px;
         }
 
         /* WhatsApp Button */
         .whatsapp-float {
             position: fixed;
-            bottom: 40px;
-            left: 40px;
+            bottom: 30px;
+            left: 30px;
             background-color: #25d366;
             color: #FFF;
             border-radius: 50px;
             text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
-            width: 60px;
-            height: 60px;
+            font-size: 25px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 55px;
+            height: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -279,9 +384,57 @@
         }
 
         .whatsapp-float:hover {
-            background-color: #128c7e;
-            color: white;
             transform: scale(1.1);
+            color: white;
+        }
+
+        /* Social Links Styling */
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 87, 34, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 8px;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            color: white !important;
+        }
+
+        .social-links a.facebook:hover { background: #1877F2 !important; }
+        .social-links a.instagram:hover { background: #E4405F !important; }
+        .social-links a.twitter:hover { background: #000000 !important; }
+        .social-links a.tiktok:hover { background: #000000 !important; }
+
+        footer .social-links a {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 10px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero { height: 60vh; }
+            .section-title h2 { font-size: 1.8rem; }
+            .btn-custom { width: 100%; margin-bottom: 10px; }
+            .hero-content .d-flex { flex-direction: column; }
         }
 
         /* RTL Specifics */
@@ -295,7 +448,7 @@
 <body data-bs-spy="scroll" data-bs-target="#navbar-main">
 
     <!-- WhatsApp Button -->
-    <a href="https://wa.me/01000000000" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/201024649844" class="whatsapp-float" target="_blank" id="wa-float">
         <i class="bi bi-whatsapp"></i>
     </a>
 
@@ -305,9 +458,20 @@
             <a class="navbar-brand" href="#">
                 <span class="fs-4">🍔 الذوق الملكي</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            
+            <div class="d-flex align-items-center order-lg-last">
+                <button class="btn btn-outline-primary position-relative me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+                    <i class="bi bi-cart3 fs-5"></i>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </button>
+                <button id="themeToggle" class="btn btn-outline-dark rounded-circle p-2 me-2">
+                    <i class="bi bi-moon-fill"></i>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" href="#hero">الرئيسية</a></li>
@@ -316,14 +480,60 @@
                     <li class="nav-item"><a class="nav-link" href="#reservation">حجز طاولة</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">اتصل بنا</a></li>
                 </ul>
-                <div class="d-flex ms-lg-3">
-                    <button id="themeToggle" class="btn btn-outline-dark rounded-circle p-2">
-                        <i class="bi bi-moon-fill"></i>
-                    </button>
-                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Cart Offcanvas -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header text-white">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">سلة المشتريات</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="cart-items-container">
+                <!-- Cart items will be injected here -->
+                <p class="text-center text-muted my-5">سلة المشتريات فارغة</p>
+            </div>
+            
+            <div id="cart-summary" class="d-none">
+                <hr>
+                <div class="d-flex justify-content-between fw-bold mb-3">
+                    <span>الإجمالي:</span>
+                    <span id="cart-total">0 جنيه</span>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label d-block">نوع الطلب</label>
+                    <div class="d-flex flex-wrap gap-2" id="order-type-buttons">
+                        <button type="button" class="btn btn-outline-primary btn-sm flex-grow-1 order-type-btn active" data-value="pickup">استلام</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm flex-grow-1 order-type-btn" data-value="takeaway">سفري</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm flex-grow-1 order-type-btn" data-value="table">طاولة</button>
+                    </div>
+                    <input type="hidden" id="order-type" value="pickup">
+                </div>
+                
+                <div id="table-number-container" class="mb-3 d-none">
+                    <label class="form-label">رقم الطاولة</label>
+                    <select class="form-select" id="table-number">
+                        <option value="1">طاولة 1</option>
+                        <option value="2">طاولة 2</option>
+                        <option value="3">طاولة 3</option>
+                        <option value="4">طاولة 4</option>
+                        <option value="5">طاولة 5</option>
+                    </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary-custom py-3 fw-bold" onclick="checkout()">إتمام الطلب عبر واتساب</button>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-danger flex-grow-1" onclick="clearCart()">إفراغ السلة</button>
+                        <button class="btn btn-outline-secondary flex-grow-1" data-bs-dismiss="offcanvas">العودة للتسوق</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <header id="hero" class="hero">
@@ -379,48 +589,166 @@
                 
                 <ul class="nav nav-pills menu-tabs justify-content-center mb-5" data-aos="fade-up">
                     <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#all">الكل</button></li>
-                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#burgers">برجر</button></li>
-                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pizza">بيتزا</button></li>
-                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#grill">مشويات</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#breakfast">فطور</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#main-courses">أطباق رئيسية</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#drinks">مشروبات</button></li>
                 </ul>
 
                 <div class="tab-content">
+                    <!-- All Items -->
                     <div class="tab-pane fade show active" id="all">
-                        <div class="row g-4">
-                            <!-- Burger -->
-                            <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="row g-4" id="menu-container">
+                            <!-- Breakfast -->
+                            <div class="col-md-6 col-lg-4 breakfast-item" data-aos="zoom-in">
                                 <div class="menu-item-card">
-                                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800" class="menu-item-img" alt="برجر لحم">
+                                    <img src="imgs/فطور-دايت-300x300.jpg" class="menu-item-img" alt="فطور دايت">
                                     <div class="menu-item-body">
-                                        <h3>برجر لحم ملكي</h3>
-                                        <p>برجر مشوي على اللهب مع الجبن السويسري والخضار الطازجة.</p>
-                                        <div class="menu-item-price">120 جنيه</div>
+                                        <div>
+                                            <h3>فطور دايت صحي</h3>
+                                            <p>تشكيلة من الجبن اللايت، البيض المسلوق، والخضروات الطازجة.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">85 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="1" data-name="فطور دايت صحي" data-price="85" data-img="imgs/فطور-دايت-300x300.jpg">إضافة للسلة</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Pizza -->
-                            <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="col-md-6 col-lg-4 breakfast-item" data-aos="zoom-in" data-aos-delay="100">
                                 <div class="menu-item-card">
-                                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800" class="menu-item-img" alt="بيتزا">
+                                    <img src="imgs/delicious-breakfast-on-a-light-table-royalty-free-image-863444442-1543345985.jpg" class="menu-item-img" alt="فطور ملكي">
                                     <div class="menu-item-body">
-                                        <h3>بيتزا إيطالي</h3>
-                                        <p>عجينة رقيقة مع صوص الطماطم الإيطالي وجبنة الموتزاريلا الفاخرة.</p>
-                                        <div class="menu-item-price">180 جنيه</div>
+                                        <div>
+                                            <h3>فطور ملكي متكامل</h3>
+                                            <p>فطور شرقي أصيل مع الفول والتمية والجبن بالعسل.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">110 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="2" data-name="فطور ملكي متكامل" data-price="110" data-img="imgs/delicious-breakfast-on-a-light-table-royalty-free-image-863444442-1543345985.jpg">إضافة للسلة</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Grill -->
-                            <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+                            <!-- Main Courses -->
+                            <div class="col-md-6 col-lg-4 main-item" data-aos="zoom-in" data-aos-delay="200">
                                 <div class="menu-item-card">
-                                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800" class="menu-item-img" alt="مشويات">
+                                    <img src="imgs/Traditional.Sunday.Roast-01.jpg" class="menu-item-img" alt="غداء تقليدي">
                                     <div class="menu-item-body">
-                                        <h3>مشويات مشكلة</h3>
-                                        <p>تشكيلة من الكباب والكفتة والشيش طاووق مع الأرز البسمتي.</p>
-                                        <div class="menu-item-price">250 جنيه</div>
+                                        <div>
+                                            <h3>وجبة الغداء التقليدية</h3>
+                                            <p>لحم روستو مع الخضار السوتيه والأرز البسمتي المبهر.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">220 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="3" data-name="وجبة الغداء التقليدية" data-price="220" data-img="imgs/Traditional.Sunday.Roast-01.jpg">إضافة للسلة</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 main-item" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="menu-item-card">
+                                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800" class="menu-item-img" alt="برجر">
+                                    <div class="menu-item-body">
+                                        <div>
+                                            <h3>برجر لحم دبل</h3>
+                                            <p>قطعتين من اللحم الصافي مع صوص الجبن الخاص والبيكون.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">160 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="4" data-name="برجر لحم دبل" data-price="160" data-img="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800">إضافة للسلة</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Added Main Courses -->
+                            <div class="col-md-6 col-lg-4 main-item" data-aos="zoom-in" data-aos-delay="350">
+                                <div class="menu-item-card">
+                                    <img src="imgs/istockphoto-492301737-612x612.jpg" class="menu-item-img" alt="مشويات">
+                                    <div class="menu-item-body">
+                                        <div>
+                                            <h3>كباب وكفتة مشوية</h3>
+                                            <p>نصف كيلو من الكباب والكفتة المتبلة بخلطة الذوق الملكي السرية.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">280 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="7" data-name="كباب وكفتة مشوية" data-price="280" data-img="imgs/istockphoto-492301737-612x612.jpg">إضافة للسلة</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 main-item" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="menu-item-card">
+                                    <img src="imgs/shutterstock_53001679-scaled.jpg" class="menu-item-img" alt="بيتزا">
+                                    <div class="menu-item-body">
+                                        <div>
+                                            <h3>بيتزا سوبر سوبريم</h3>
+                                            <p>عجينة هشة غنية بالخضروات، الزيتون، واللحوم المشكلة مع الموتزاريلا.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">195 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="8" data-name="بيتزا سوبر سوبريم" data-price="195" data-img="imgs/shutterstock_53001679-scaled.jpg">إضافة للسلة</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 main-item" data-aos="zoom-in" data-aos-delay="450">
+                                <div class="menu-item-card">
+                                    <img src="imgs/image22s.jpeg" class="menu-item-img" alt="دجاج">
+                                    <div class="menu-item-body">
+                                        <div>
+                                            <h3>دجاج مشوي على الفحم</h3>
+                                            <p>دجاجة كاملة مشوية على الفحم تقدم مع الثومية والخبز الساخن.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">240 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="9" data-name="دجاج مشوي على الفحم" data-price="240" data-img="imgs/image22s.jpeg">إضافة للسلة</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Drinks -->
+                            <div class="col-md-6 col-lg-4 drink-item" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="menu-item-card">
+                                    <img src="imgs/biscoff-hot-chocolate-05b-550x825.jpg" class="menu-item-img" alt="هوت شوكلت">
+                                    <div class="menu-item-body">
+                                        <div>
+                                            <h3>هوت شوكلت بسكوف</h3>
+                                            <p>مشروب الشوكولاتة الساخنة الغني مع زبدة البسكوف والكريمة.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">65 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="5" data-name="هوت شوكلت بسكوف" data-price="65" data-img="imgs/biscoff-hot-chocolate-05b-550x825.jpg">إضافة للسلة</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 drink-item" data-aos="zoom-in" data-aos-delay="500">
+                                <div class="menu-item-card">
+                                    <img src="imgs/مشروبات-غازية.jpg" class="menu-item-img" alt="مشروبات غازية">
+                                    <div class="menu-item-body">
+                                        <div>
+                                            <h3>مشروبات غازية متنوعة</h3>
+                                            <p>اختر مشروبك المفضل من التشكيلة المتوفرة لدينا.</p>
+                                        </div>
+                                        <div>
+                                            <div class="menu-item-price">25 جنيه</div>
+                                            <button class="btn btn-primary-custom w-100 mt-2 add-to-cart" data-id="6" data-name="مشروبات غازية" data-price="25" data-img="imgs/مشروبات-غازية.jpg">إضافة للسلة</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Filtered Panes (will be handled by simple JS filtering or manual setup) -->
+                    <div class="tab-pane fade" id="breakfast">
+                        <div class="row g-4" id="breakfast-container"></div>
+                    </div>
+                    <div class="tab-pane fade" id="main-courses">
+                        <div class="row g-4" id="main-courses-container"></div>
+                    </div>
+                    <div class="tab-pane fade" id="drinks">
+                        <div class="row g-4" id="drinks-container"></div>
                     </div>
                 </div>
             </div>
@@ -437,7 +765,7 @@
                             <i class="bi bi-telephone-fill fs-3 text-primary me-3"></i>
                             <div>
                                 <h5 class="mb-0">اتصل بنا</h5>
-                                <p class="mb-0">0100 000 0000</p>
+                                <p class="mb-0">201024649844</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
@@ -497,10 +825,10 @@
                             <h3>تابعنا على التواصل الاجتماعي</h3>
                             <p class="text-muted mb-4">كن أول من يعرف عن عروضنا الجديدة</p>
                             <div class="social-links">
-                                <a href="#"><i class="bi bi-facebook"></i></a>
-                                <a href="#"><i class="bi bi-instagram"></i></a>
-                                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                                <a href="#"><i class="bi bi-tiktok"></i></a>
+                                <a href="https://www.facebook.com/azhasoft/?locale=ar_AR" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#" class="tiktok"><i class="bi bi-tiktok"></i></a>
                             </div>
                         </div>
                     </div>
@@ -516,6 +844,12 @@
                 <div class="col-md-4 mb-4">
                     <div class="footer-logo">🍔 الذوق الملكي</div>
                     <p>نقدم أفضل الوجبات السريعة والمشويات بمذاق لا ينسى وجودة لا تضاهى. هدفنا هو إرضاء ذوقكم الرفيع.</p>
+                    <div class="social-links mt-3">
+                        <a href="https://www.facebook.com/azhasoft/?locale=ar_AR" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="tiktok"><i class="bi bi-tiktok"></i></a>
+                    </div>
                 </div>
                 <div class="col-md-4 mb-4 text-center">
                     <h5>روابط سريعة</h5>
@@ -527,8 +861,8 @@
                 </div>
                 <div class="col-md-4 mb-4 text-end">
                     <h5>تواصل معنا</h5>
-                    <p class="mb-1">هاتف: 0100 000 0000</p>
-                    <p class="mb-1">بريد: info@royaltaste.com</p>
+                    <p class="mb-1">هاتف: 201024649844</p>
+                    <p class="mb-1">بريد: azhasoft@gmail.com</p>
                 </div>
             </div>
             <hr class="bg-secondary">
@@ -566,31 +900,281 @@
             }
         });
 
-        // Theme Toggle (Demo)
+        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         let isDark = false;
         themeToggle.addEventListener('click', () => {
             isDark = !isDark;
-            if (isDark) {
-                document.body.style.backgroundColor = '#121212';
-                document.body.style.color = '#e0e0e0';
-                themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
-                document.querySelectorAll('.card, .feature-card, .reservation-form').forEach(el => {
-                    el.style.backgroundColor = '#1e1e1e';
+            document.body.classList.toggle('bg-dark', isDark);
+            document.body.classList.toggle('text-white', isDark);
+            themeToggle.innerHTML = isDark ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
+            
+            document.querySelectorAll('.card, .feature-card, .reservation-form, .menu-item-card, section').forEach(el => {
+                if (isDark) {
+                    if (el.tagName !== 'SECTION') {
+                        el.style.backgroundColor = '#1e1e1e';
+                        el.style.borderColor = '#333';
+                    }
                     el.style.color = '#e0e0e0';
-                    el.style.borderColor = '#333';
-                });
-            } else {
-                document.body.style.backgroundColor = '';
-                document.body.style.color = '';
-                themeToggle.innerHTML = '<i class="bi bi-moon-fill"></i>';
-                document.querySelectorAll('.card, .feature-card, .reservation-form').forEach(el => {
+                } else {
                     el.style.backgroundColor = '';
                     el.style.color = '';
                     el.style.borderColor = '';
-                });
-            }
+                }
+            });
+
+            // Specific fix for headings and lead text in sections
+            document.querySelectorAll('h1, h2, h3, h4, h5, .lead, p').forEach(el => {
+                if (isDark) {
+                    el.style.color = '#e0e0e0';
+                } else {
+                    el.style.color = '';
+                }
+            });
         });
+
+        // --- Cart Logic ---
+        let cart = [];
+
+        // Cookie Helpers
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + JSON.stringify(value) + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for(let i=0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return JSON.parse(c.substring(nameEQ.length,c.length));
+            }
+            return null;
+        }
+
+        // Load Cart from Cookies
+        function loadCart() {
+            const savedCart = getCookie('restaurant_cart');
+            if (savedCart) {
+                cart = savedCart;
+                updateCartUI();
+            }
+        }
+
+        // Save Cart to Cookies
+        function saveCart() {
+            setCookie('restaurant_cart', cart, 7);
+        }
+
+        // Add to Cart
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const price = parseInt(button.getAttribute('data-price'));
+                const img = button.getAttribute('data-img');
+
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ id, name, price, img, quantity: 1 });
+                }
+
+                saveCart();
+                updateCartUI();
+                
+                // Visual Feedback
+                const originalText = button.textContent;
+                button.textContent = 'تمت الإضافة! ✓';
+                button.classList.replace('btn-primary-custom', 'btn-success');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.replace('btn-success', 'btn-primary-custom');
+                }, 1500);
+            });
+        });
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const summary = document.getElementById('cart-summary');
+            const countBadge = document.getElementById('cart-count');
+            const totalDisplay = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-muted my-5">سلة المشتريات فارغة</p>';
+                summary.classList.add('d-none');
+                countBadge.textContent = '0';
+                return;
+            }
+
+            summary.classList.remove('d-none');
+            container.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                count += item.quantity;
+
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <img src="${item.img}" class="cart-item-img" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h6>${item.name}</h6>
+                        <p>${item.price} جنيه × ${item.quantity}</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-sm btn-outline-secondary px-2" onclick="changeQuantity('${item.id}', -1)">-</button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button class="btn btn-sm btn-outline-secondary px-2" onclick="changeQuantity('${item.id}', 1)">+</button>
+                        <button class="btn btn-sm text-danger ms-2" onclick="removeFromCart('${item.id}')"><i class="bi bi-trash"></i></button>
+                    </div>
+                `;
+                container.appendChild(itemEl);
+            });
+
+            countBadge.textContent = count;
+            totalDisplay.textContent = total + ' جنيه';
+        }
+
+        window.changeQuantity = function(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+                saveCart();
+                updateCartUI();
+            }
+        };
+
+        window.removeFromCart = function(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+            updateCartUI();
+        };
+
+        window.clearCart = function() {
+            if (confirm('هل أنت متأكد من رغبتك في إفراغ السلة؟')) {
+                cart = [];
+                saveCart();
+                updateCartUI();
+            }
+        };
+
+        // Order Type Toggle
+        document.querySelectorAll('.order-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Toggle active class
+                document.querySelectorAll('.order-type-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update hidden input
+                const val = this.getAttribute('data-value');
+                document.getElementById('order-type').value = val;
+                
+                // Show/Hide table selection
+                const tableContainer = document.getElementById('table-number-container');
+                if (val === 'table') {
+                    tableContainer.classList.remove('d-none');
+                } else {
+                    tableContainer.classList.add('d-none');
+                }
+            });
+        });
+
+        // Checkout
+        window.checkout = function() {
+            if (cart.length === 0) return;
+
+            const orderType = document.getElementById('order-type').value;
+            const tableNum = document.getElementById('table-number').value;
+            let typeText = "";
+            if (orderType === 'pickup') typeText = "استلام من المطعم";
+            else if (orderType === 'takeaway') typeText = "سفري";
+            else typeText = `على الطاولة (طاولة رقم ${tableNum})`;
+
+            let message = `*طلب جديد من مطعم الذوق الملكي*\n\n`;
+            message += `*نوع الطلب:* ${typeText}\n`;
+            message += `*الأصناف:*\n`;
+
+            let total = 0;
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.quantity} × ${item.price} ج.م)\n`;
+                total += item.price * item.quantity;
+            });
+
+            message += `\n*الإجمالي:* ${total} جنيه`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/201024649844?text=${encodedMessage}`;
+
+            // Redirect to WhatsApp
+            window.open(whatsappUrl, '_blank');
+
+            // Empty Cart
+            cart = [];
+            saveCart();
+            updateCartUI();
+            
+            // Close Offcanvas
+            const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('cartOffcanvas'));
+            offcanvas.hide();
+            
+            alert('تم إرسال طلبك عبر واتساب! شكراً لتعاملك معنا.');
+        };
+
+        // Menu Filtering Logic
+        document.querySelectorAll('.menu-tabs .nav-link').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', (e) => {
+                const targetId = e.target.getAttribute('data-bs-target').substring(1);
+                if (targetId === 'all') return;
+
+                const container = document.getElementById(`${targetId}-container`);
+                container.innerHTML = '';
+                
+                const filterClass = targetId === 'breakfast' ? 'breakfast-item' : 
+                                    targetId === 'main-courses' ? 'main-item' : 'drink-item';
+                
+                const items = document.querySelectorAll(`#menu-container .${filterClass}`);
+                items.forEach(item => {
+                    const clone = item.cloneNode(true);
+                    // Re-attach event listeners to cloned buttons
+                    const btn = clone.querySelector('.add-to-cart');
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const name = btn.getAttribute('data-name');
+                        const price = parseInt(btn.getAttribute('data-price'));
+                        const img = btn.getAttribute('data-img');
+                        
+                        const existingItem = cart.find(i => i.id === id);
+                        if (existingItem) existingItem.quantity += 1;
+                        else cart.push({ id, name, price, img, quantity: 1 });
+                        
+                        saveCart();
+                        updateCartUI();
+                        
+                        const originalText = btn.textContent;
+                        btn.textContent = 'تمت الإضافة! ✓';
+                        btn.classList.replace('btn-primary-custom', 'btn-success');
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.classList.replace('btn-success', 'btn-primary-custom');
+                        }, 1500);
+                    });
+                    container.appendChild(clone);
+                });
+            });
+        });
+
+        // Initialize
+        loadCart();
 
         // Reservation Form Submission
         document.getElementById('resForm').addEventListener('submit', function(e) {

@@ -1,0 +1,114 @@
+{
+  "categories": [
+    {
+      "id": "breakfast",
+      "name": "فطور",
+      "image": "imgs/delicious-breakfast-on-a-light-table-royalty-free-image-863444442-1543345985.jpg",
+      "item_class": "breakfast-item"
+    },
+    {
+      "id": "main-courses",
+      "name": "أطباق رئيسية",
+      "image": "imgs/Traditional.Sunday.Roast-01.jpg",
+      "item_class": "main-item"
+    },
+    {
+      "id": "drinks",
+      "name": "مشروبات",
+      "image": "imgs/biscoff-hot-chocolate-05b-550x825.jpg",
+      "item_class": "drink-item"
+    }
+  ],
+  "items": [
+    {
+      "id": "1",
+      "category_id": "breakfast",
+      "name": "فطور دايت صحي",
+      "price": 85,
+      "discount": 0,
+      "image_url": "imgs/فطور-دايت-300x300.jpg",
+      "description": "تشكيلة من الجبن اللايت، البيض المسلوق، والخضروات الطازجة.",
+      "delay": 0
+    },
+    {
+      "id": "2",
+      "category_id": "breakfast",
+      "name": "فطور ملكي متكامل",
+      "price": 110,
+      "discount": 15,
+      "image_url": "imgs/delicious-breakfast-on-a-light-table-royalty-free-image-863444442-1543345985.jpg",
+      "description": "فطور شرقي أصيل مع الفول والتمية والجبن بالعسل.",
+      "delay": 100
+    },
+    {
+      "id": "3",
+      "category_id": "main-courses",
+      "name": "وجبة الغداء التقليدية",
+      "price": 220,
+      "discount": 0,
+      "image_url": "imgs/Traditional.Sunday.Roast-01.jpg",
+      "description": "لحم روستو مع الخضار السوتيه والأرز البسمتي المبهر.",
+      "delay": 200
+    },
+    {
+      "id": "4",
+      "category_id": "main-courses",
+      "name": "برجر لحم دبل",
+      "price": 160,
+      "discount": 20,
+      "image_url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800",
+      "description": "قطعتين من اللحم الصافي مع صوص الجبن الخاص والبيكون.",
+      "delay": 300
+    },
+    {
+      "id": "7",
+      "category_id": "main-courses",
+      "name": "كباب وكفتة مشوية",
+      "price": 280,
+      "discount": 30,
+      "image_url": "imgs/istockphoto-492301737-612x612.jpg",
+      "description": "نصف كيلو من الكباب والكفتة المتبلة بخلطة الذوق الملكي السرية.",
+      "delay": 350
+    },
+    {
+      "id": "8",
+      "category_id": "main-courses",
+      "name": "بيتزا سوبر سوبريم",
+      "price": 195,
+      "discount": 0,
+      "image_url": "imgs/shutterstock_53001679-scaled.jpg",
+      "description": "عجينة هشة غنية بالخضروات، الزيتون، واللحوم المشكلة مع الموتزاريلا.",
+      "delay": 400
+    },
+    {
+      "id": "9",
+      "category_id": "main-courses",
+      "name": "دجاج مشوي على الفحم",
+      "price": 240,
+      "discount": 25,
+      "image_url": "imgs/image22s.jpeg",
+      "description": "دجاجة كاملة مشوية على الفحم تقدم مع الثومية والخبز الساخن.",
+      "delay": 450
+    },
+    {
+      "id": "5",
+      "category_id": "drinks",
+      "name": "هوت شوكلت بسكوف",
+      "price": 65,
+      "discount": 5,
+      "image_url": "imgs/biscoff-hot-chocolate-05b-550x825.jpg",
+      "description": "مشروب الشوكولاتة الساخنة الغني مع زبدة البسكوف والكريمة.",
+      "delay": 400
+    },
+    {
+      "id": "6",
+      "category_id": "drinks",
+      "name": "مشروبات غازية متنوعة",
+      "price": 25,
+      "discount": 0,
+      "image_url": "imgs/مشروبات-غازية.jpg",
+      "description": "اختر مشروبك المفضل من التشكيلة المتوفرة لدينا.",
+      "delay": 500
+    }
+  ]
+}

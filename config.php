@@ -6,8 +6,8 @@ define('APP_TITLE', 'Montex Soft QR Menu - مطعم الذوق الملكي');
 define('APP_DESCRIPTION', 'تصفح قائمة طعام مطعم الذوق الملكي مباشرة عبر رمز الاستجابة السريع QR واطلب وجبتك المفضلة عبر الواتساب. منيو رقمي تفاعلي سريع وسهل الاستخدام من تطوير Montex Soft.');
 
 // Contact Info
-define('RESTAURANT_PHONE', '201024649899');
-define('RESTAURANT_PHONE_DISPLAY', '201024649899');
+define('RESTAURANT_PHONE', '201024649844');
+define('RESTAURANT_PHONE_DISPLAY', '201024649844');
 define('RESTAURANT_EMAIL', 'Montexsoft@gmail.com');
 define('RESTAURANT_ADDRESS', 'شارع الملك، وسط المدينة، القاهرة');
 define('RESTAURANT_HOURS', 'يومياً من 10 صباحاً حتى 2 بعد منتصف الليل');

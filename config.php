@@ -1,19 +1,19 @@
 <?php
 // Configuration settings for Royal Taste Restaurant
 
-define('APP_NAME', 'AZHA Soft QR Menu');
-define('APP_TITLE', 'AZHA Soft QR Menu - مطعم الذوق الملكي');
-define('APP_DESCRIPTION', 'تصفح قائمة طعام مطعم الذوق الملكي مباشرة عبر رمز الاستجابة السريع QR واطلب وجبتك المفضلة عبر الواتساب. منيو رقمي تفاعلي سريع وسهل الاستخدام من تطوير AZHA Soft.');
+define('APP_NAME', 'Montex Soft QR Menu');
+define('APP_TITLE', 'Montex Soft QR Menu - مطعم الذوق الملكي');
+define('APP_DESCRIPTION', 'تصفح قائمة طعام مطعم الذوق الملكي مباشرة عبر رمز الاستجابة السريع QR واطلب وجبتك المفضلة عبر الواتساب. منيو رقمي تفاعلي سريع وسهل الاستخدام من تطوير Montex Soft.');
 
 // Contact Info
 define('RESTAURANT_PHONE', '201024649899');
 define('RESTAURANT_PHONE_DISPLAY', '201024649899');
-define('RESTAURANT_EMAIL', 'azhasoft@gmail.com');
+define('RESTAURANT_EMAIL', 'Montexsoft@gmail.com');
 define('RESTAURANT_ADDRESS', 'شارع الملك، وسط المدينة، القاهرة');
 define('RESTAURANT_HOURS', 'يومياً من 10 صباحاً حتى 2 بعد منتصف الليل');
 
 // Social Media Links
-define('SOCIAL_FACEBOOK', 'https://www.facebook.com/azhasoft/?locale=ar_AR');
+define('SOCIAL_FACEBOOK', 'https://www.facebook.com/Montexsoft/?locale=ar_AR');
 define('SOCIAL_INSTAGRAM', '#');
 define('SOCIAL_TWITTER', '#');
 define('SOCIAL_TIKTOK', '#');

@@ -118,111 +118,175 @@ function set_setting($key, $value) {
 }
 
 /**
- * Fetch data from server API and overwrite local tables
+ * Download a remote image into the local imgs/ directory.
+ * Returns the local relative path (e.g. "imgs/filename.jpg") or empty string on failure.
  */
-function fetch_and_sync_from_server() {
-    $url = API_DASHBOARD_URL;
-    if (empty($url)) {
-        return ['success' => false, 'message' => 'API Dashboard URL is not defined in config.php.'];
+function download_image($url) {
+    if (empty($url)) return '';
+
+    // Ensure imgs directory exists
+    $imgs_dir = defined('IMGS_DIR') ? IMGS_DIR : dirname(__DIR__) . '/imgs';
+    if (!is_dir($imgs_dir)) {
+        mkdir($imgs_dir, 0755, true);
     }
-    
-    // Configure API stream context with timeout
+
+    // Build a safe local filename from the URL
+    $parsed   = parse_url($url);
+    $basename = basename($parsed['path'] ?? 'image.jpg');
+    // Sanitize: keep only safe characters
+    $basename = preg_replace('/[^A-Za-z0-9._-]/', '_', $basename);
+    if (empty($basename) || $basename === '_') {
+        $basename = md5($url) . '.jpg';
+    }
+
+    $local_path = $imgs_dir . '/' . $basename;
+    $relative   = 'imgs/' . $basename;
+
+    // Skip download if already cached locally
+    if (file_exists($local_path)) {
+        return $relative;
+    }
+
     $options = [
         "http" => [
-            "method" => "GET",
-            "header" => "Accept: application/json\r\nUser-Agent: PHP-API-Sync-Agent\r\n",
-            "timeout" => 15
+            "method"  => "GET",
+            "header"  => "User-Agent: PHP-Image-Downloader\r\n",
+            "timeout" => 20
         ]
     ];
-    $context = stream_context_create($options);
-    
+    $ctx     = stream_context_create($options);
+    $content = @file_get_contents($url, false, $ctx);
+    if ($content !== false) {
+        file_put_contents($local_path, $content);
+        return $relative;
+    }
+    return ''; // failed – return empty so the app can use a placeholder
+}
+
+/**
+ * Helper: fetch JSON from a URL. Returns decoded array or throws RuntimeException.
+ */
+function fetch_json_api($url) {
+    $options = [
+        "http" => [
+            "method"  => "GET",
+            "header"  => "Accept: application/json\r\nUser-Agent: PHP-API-Sync-Agent\r\n",
+            "timeout" => 20
+        ]
+    ];
+    $context  = stream_context_create($options);
     $response = @file_get_contents($url, false, $context);
     if ($response === false) {
         $error = error_get_last();
-        return [
-            'success' => false,
-            'message' => 'Could not fetch data from ' . $url . '. Error: ' . ($error['message'] ?? 'unknown error')
-        ];
+        throw new RuntimeException('Could not fetch ' . $url . ': ' . ($error['message'] ?? 'unknown error'));
     }
-    
     $data = json_decode($response, true);
     if (json_last_error() !== JSON_ERROR_NONE) {
-        return [
-            'success' => false,
-            'message' => 'Invalid JSON received from server API: ' . json_last_error_msg()
-        ];
+        throw new RuntimeException('Invalid JSON from ' . $url . ': ' . json_last_error_msg());
     }
-    
-    if (!isset($data['categories']) || !is_array($data['categories'])) {
-        return ['success' => false, 'message' => 'Malformed API response: "categories" array missing.'];
+    if (empty($data['success']) || !isset($data['data']) || !is_array($data['data'])) {
+        throw new RuntimeException('API returned failure or unexpected structure from ' . $url);
     }
-    if (!isset($data['items']) || !is_array($data['items'])) {
-        return ['success' => false, 'message' => 'Malformed API response: "items" array missing.'];
+    return $data['data'];
+}
+
+/**
+ * Fetch data from both API endpoints (categories + products),
+ * download product images, and overwrite local SQLite tables.
+ */
+function fetch_and_sync_from_server() {
+    if (!defined('API_CATEGORIES_URL') || !defined('API_PRODUCTS_URL')) {
+        return ['success' => false, 'message' => 'API endpoint constants are not defined in config.php.'];
     }
-    
+
+    // ── 1. Fetch categories ──────────────────────────────────────────
+    try {
+        $categories = fetch_json_api(API_CATEGORIES_URL);
+    } catch (RuntimeException $e) {
+        return ['success' => false, 'message' => 'Categories API error: ' . $e->getMessage()];
+    }
+
+    // ── 2. Fetch products ────────────────────────────────────────────
+    try {
+        $products = fetch_json_api(API_PRODUCTS_URL);
+    } catch (RuntimeException $e) {
+        return ['success' => false, 'message' => 'Products API error: ' . $e->getMessage()];
+    }
+
     $pdo = get_db_connection();
     try {
         $pdo->beginTransaction();
-        
-        // Truncate existing items and categories
+
+        // Clear existing data
         $pdo->exec("DELETE FROM items");
         $pdo->exec("DELETE FROM categories");
-        
-        // Insert Categories
-        $stmt_cat = $pdo->prepare("INSERT INTO categories (id, name, image, item_class) VALUES (:id, :name, :image, :item_class)");
-        foreach ($data['categories'] as $cat) {
-            if (!isset($cat['id']) || !isset($cat['name'])) {
-                continue;
-            }
+
+        // ── 3. Insert categories ─────────────────────────────────────
+        $stmt_cat = $pdo->prepare(
+            "INSERT INTO categories (id, name, image, item_class) VALUES (:id, :name, :image, :item_class)"
+        );
+        $cats_inserted = 0;
+        foreach ($categories as $cat) {
+            if (!isset($cat['id'], $cat['name'])) continue;
+
+            // Download category image if present
+            $img_remote = $cat['image_url'] ?? $cat['image'] ?? '';
+            $img_local  = !empty($img_remote) ? download_image($img_remote) : '';
+
+            // Build a CSS-safe item_class from the numeric id
+            $item_class = $cat['item_class'] ?? ('cat-' . $cat['id'] . '-item');
+
             $stmt_cat->execute([
-                ':id' => $cat['id'],
-                ':name' => $cat['name'],
-                ':image' => $cat['image'] ?? $cat['image_url'] ?? '',
-                ':item_class' => $cat['item_class'] ?? ($cat['id'] . '-item')
+                ':id'         => (string)$cat['id'],
+                ':name'       => $cat['name'],
+                ':image'      => $img_local,
+                ':item_class' => $item_class,
             ]);
+            $cats_inserted++;
         }
-        
-        // Insert Items
-        $stmt_item = $pdo->prepare("INSERT INTO items (id, category_id, name, price, discount, image_url, description, delay) VALUES (:id, :category_id, :name, :price, :discount, :image_url, :description, :delay)");
-        $delay_count = [];
-        
-        foreach ($data['items'] as $item) {
-            if (!isset($item['id']) || !isset($item['category_id']) || !isset($item['name']) || !isset($item['price'])) {
-                continue;
-            }
-            
-            $cat_id = $item['category_id'];
-            if (!isset($delay_count[$cat_id])) {
-                $delay_count[$cat_id] = 0;
-            }
-            $delay = isset($item['delay']) ? (int)$item['delay'] : ($delay_count[$cat_id] * 100);
+
+        // ── 4. Insert products + download images ─────────────────────
+        $stmt_item = $pdo->prepare(
+            "INSERT INTO items (id, category_id, name, price, discount, image_url, description, delay)
+             VALUES (:id, :category_id, :name, :price, :discount, :image_url, :description, :delay)"
+        );
+        $delay_count   = [];
+        $items_inserted = 0;
+        foreach ($products as $item) {
+            if (!isset($item['id'], $item['category_id'], $item['name'], $item['price'])) continue;
+            if (($item['status'] ?? 1) == 0) continue; // skip inactive items
+
+            $cat_id = (string)$item['category_id'];
+            if (!isset($delay_count[$cat_id])) $delay_count[$cat_id] = 0;
+            $delay = (int)($item['item_order'] ?? $delay_count[$cat_id]) * 100;
             $delay_count[$cat_id]++;
-            
+
+            // Download product image
+            $img_remote = $item['image_url'] ?? '';
+            $img_local  = !empty($img_remote) ? download_image($img_remote) : '';
+
             $stmt_item->execute([
-                ':id' => $item['id'],
+                ':id'          => (string)$item['id'],
                 ':category_id' => $cat_id,
-                ':name' => $item['name'],
-                ':price' => floatval($item['price']),
-                ':discount' => floatval($item['discount'] ?? 0),
-                ':image_url' => $item['image_url'] ?? $item['image'] ?? '',
+                ':name'        => $item['name'],
+                ':price'       => floatval($item['price']),
+                ':discount'    => floatval($item['discount'] ?? 0),
+                ':image_url'   => $img_local,
                 ':description' => $item['description'] ?? '',
-                ':delay' => $delay
+                ':delay'       => $delay,
             ]);
+            $items_inserted++;
         }
-        
+
         $pdo->commit();
-        
-        // Update sync timestamp
         set_setting('last_sync_time', time());
-        
+
         return [
             'success' => true,
-            'message' => 'Successfully synchronized ' . count($data['categories']) . ' categories and ' . count($data['items']) . ' items with server API.'
+            'message' => "تمت المزامنة بنجاح: {$cats_inserted} فئة و {$items_inserted} صنف. تم تحميل الصور إلى مجلد imgs/."
         ];
     } catch (Exception $e) {
-        if ($pdo->inTransaction()) {
-            $pdo->rollBack();
-        }
+        if ($pdo->inTransaction()) $pdo->rollBack();
         return [
             'success' => false,
             'message' => 'Transaction failed during sync: ' . $e->getMessage()

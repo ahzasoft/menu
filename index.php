@@ -115,8 +115,8 @@ function render_menu_item($item, $category_class = '') {
                     </li>
                     <?php foreach ($menu_categories as $key => $cat): ?>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#<?php echo $key; ?>"><?php echo $cat['name']; ?></button>
-                        </li>
+                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#item_<?php echo $key; ?>"><?php echo $cat['name']; ?></button>
+                        </li>   
                     <?php endforeach; ?>
                 </ul>
 
@@ -135,12 +135,12 @@ function render_menu_item($item, $category_class = '') {
 
                     <!-- Filtered Panes -->
                     <?php foreach ($menu_categories as $key => $cat): ?>
-                        <div class="tab-pane fade" id="<?php echo $key; ?>">
+                        <div class="tab-pane fade" id="item_<?php echo $key; ?>">
                             <div class="row g-4" id="<?php echo $key; ?>-container">
                                 <?php 
                                 foreach ($menu_items as $item) {
-                                    if ($item['category'] === $key) {
-                                        render_menu_item($item, $cat['item_class']);
+                                  if ($item['category'] == $key) {
+                     render_menu_item($item, $cat['item_class']);
                                     }
                                 }
                                 ?>

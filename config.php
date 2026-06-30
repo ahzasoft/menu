@@ -23,8 +23,18 @@ define('MAPS_EMBED_URL', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d
 
 // Database & API Sync Settings
 define('DB_PATH', __DIR__ . '/db/menu.sqlite');
-define('API_DASHBOARD_URL', 'file:///' . __DIR__ . '/api_sample.json'); // Point to local sample file for offline testing and setup
 define('API_SYNC_INTERVAL', 3600); // Auto-sync cache interval in seconds (1 hour)
+define('API_AUTH_KEY', '19e199d9ecf30fa1620ab772a18ad2f3c042b224f741a5451f744a2f8d7182d7');
+define('BUSINESS_ID', 30);
+define('IMGS_DIR', __DIR__ . '/imgs');
+
+// API Endpoints
+define('API_BASE_URL', 'http://montexsoft/api/qrmenu');
+define('API_PRODUCTS_URL', API_BASE_URL . '/' . BUSINESS_ID . '/products?token=' . API_AUTH_KEY);
+define('API_CATEGORIES_URL', API_BASE_URL . '/' . BUSINESS_ID . '/categories?token=' . API_AUTH_KEY);
+// Legacy fallback (local sample for offline testing)
+define('API_DASHBOARD_URL', API_PRODUCTS_URL);
+
 ?>
 
 
